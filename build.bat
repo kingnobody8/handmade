@@ -33,7 +33,7 @@ rem user32.lib	== win32 windows
 rem hid.lib	== human interface devices (raw input)
 rem gdi.lib	== WM_PAINT PatBlt
 
-cl -FC -Zi /EHsc /Fe"handmade" ../source/handmade.cpp user32.lib hid.lib gdi32.lib opengl32.lib
+cl -FC -Zi /EHsc /Fe"handmade" ../source/win32_handmade.cpp user32.lib hid.lib gdi32.lib opengl32.lib
 
 popd
 
