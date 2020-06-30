@@ -33,7 +33,11 @@ rem user32.lib	== win32 windows
 rem hid.lib	== human interface devices (raw input)
 rem gdi.lib	== WM_PAINT PatBlt
 
-cl -DHANDMADE_INTERNAL=1 -DHANDMADE_SLOW=1 -DHANDMADE_WIN32=1 -FC -Zi /EHsc /Fe"handmade" ../source/win32_handmade.cpp user32.lib hid.lib gdi32.lib opengl32.lib
+REM TODO - can we just build both x86/x64 with one exe?
+
+REM -subsystem:windows,5.01
+
+cl -MT -nologo -Gm- -GR- -EHa- -Od -Oi -WX -W4 -wd4201 -wd4100 -wd4189 -DHANDMADE_INTERNAL=1 -DHANDMADE_SLOW=1 -DHANDMADE_WIN32=1 -FC -Z7 -Fmwin32_handmade.map /EHsc /Fe"handmade" ../source/win32_handmade.cpp /link -opt:ref user32.lib hid.lib gdi32.lib opengl32.lib
 
 popd
 
