@@ -43,11 +43,8 @@ typedef uint64_t uint64;
 typedef float real32;
 typedef double real64;
 
-
-
-
 #if HANDMADE_SLOW
-   // TODO(casey): Complete assertion macro - don't worry everyone!
+// TODO(casey): Complete assertion macro - don't worry everyone!
 #define Assert(Expression) if(!(Expression)) {*(int *)0 = 0;}
 #else
 #define Assert(Expression)
@@ -58,10 +55,8 @@ typedef double real64;
 #define Gigabytes(Value) (Megabytes(Value)*1024LL)
 #define Terabytes(Value) (Gigabytes(Value)*1024LL)
 
-
-
 #define ArrayCount(Array) (sizeof(Array) / sizeof((Array)[0]))
-   // TODO(casey): swap, min, max ... macros???
+// TODO(casey): swap, min, max ... macros???
 
 inline uint32
 SafeTruncateUInt64(uint64 Value)
@@ -72,11 +67,9 @@ SafeTruncateUInt64(uint64 Value)
 	return(Result);
 }
 
-
 /*
-  TODO(casey): Services that the platform layer provides to the game
+  NOTE(casey): Services that the platform layer provides to the game
 */
-
 #if HANDMADE_INTERNAL
 /* IMPORTANT(casey):
 
@@ -98,9 +91,7 @@ typedef DEBUG_PLATFORM_READ_ENTIRE_FILE(debug_platform_read_entire_file);
 #define DEBUG_PLATFORM_WRITE_ENTIRE_FILE(name) bool32 name(char *Filename, uint32 MemorySize, void *Memory)
 typedef DEBUG_PLATFORM_WRITE_ENTIRE_FILE(debug_platform_write_entire_file);
 
-
 #endif
-
 
 /*
   NOTE(casey): Services that the game provides to the platform layer.
@@ -117,6 +108,7 @@ struct game_offscreen_buffer
 	int Width;
 	int Height;
 	int Pitch;
+	int BytesPerPixel;
 };
 
 struct game_sound_output_buffer
@@ -125,6 +117,7 @@ struct game_sound_output_buffer
 	int SampleCount;
 	int16* Samples;
 };
+
 struct game_button_state
 {
 	int HalfTransitionCount;
@@ -162,7 +155,6 @@ struct game_controller_input
 			// NOTE(casey): All buttons must be added above this line
 
 			game_button_state Terminator;
-
 		};
 	};
 };
@@ -172,7 +164,6 @@ struct game_input
 	// TODO(casey): Insert clock values here.    
 	game_controller_input Controllers[5];
 };
-
 inline game_controller_input* GetController(game_input* Input, int unsigned ControllerIndex)
 {
 	Assert(ControllerIndex < ArrayCount(Input->Controllers));
@@ -180,7 +171,6 @@ inline game_controller_input* GetController(game_input* Input, int unsigned Cont
 	game_controller_input* Result = &Input->Controllers[ControllerIndex];
 	return(Result);
 }
-
 
 struct game_memory
 {
@@ -195,7 +185,6 @@ struct game_memory
 	debug_platform_free_file_memory* DEBUGPlatformFreeFileMemory;
 	debug_platform_read_entire_file* DEBUGPlatformReadEntireFile;
 	debug_platform_write_entire_file* DEBUGPlatformWriteEntireFile;
-
 };
 
 #define GAME_UPDATE_AND_RENDER(name) void name(game_memory *Memory, game_input *Input, game_offscreen_buffer *Buffer)
@@ -203,7 +192,6 @@ typedef GAME_UPDATE_AND_RENDER(game_update_and_render);
 GAME_UPDATE_AND_RENDER(GameUpdateAndRenderStub)
 {
 }
-
 
 // NOTE(casey): At the moment, this has to be a very fast function, it cannot be
 // more than a millisecond or so.
@@ -226,8 +214,11 @@ struct game_state
 	int BlueOffset;
 
 	real32 tSine;
-};
 
+	int PlayerX;
+	int PlayerY;
+	real32 tJump;
+};
 
 #define HANDMADE_H
 #endif
