@@ -25,3 +25,7 @@
  '(mouse-wheel-progressive-speed nil)
  '(mouse-wheel-scroll-amount (quote (15)))
  '(version-control nil))
+ 
+ 
+  ; Turn on line numbers
+  ; (linum-mode)
