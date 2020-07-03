@@ -37,8 +37,9 @@ REM TODO - can we just build both x86/x64 with one exe?
 
 REM -subsystem:windows,5.01
 
-set CommonCompilerFlags=-MT -nologo -Gm- -GR- -EHa- -Od -Oi -WX -W4 -wd4201 -wd4100 -wd4189 -DHANDMADE_INTERNAL=1 -DHANDMADE_SLOW=1 -DHANDMADE_WIN32=1 -FC -Z7 -Fmwin32_handmade.map /EHsc /Fe"handmade"
-set CommonLinkerFlags= -opt:ref user32.lib hid.lib gdi32.lib opengl32.lib winmm.lib
+set CommonCompilerFlags=-MT -nologo -Gm- -GR- -EHa- -Od -Oi -WX -W4 -wd4201 -wd4100 -wd4189 -DHANDMADE_INTERNAL=1 -DHANDMADE_SLOW=1 -DHANDMADE_WIN32=1 -FC -Z7 /EHsc /Fe"handmade"
+set CommonLinkerFlags= -incremental:no -opt:ref user32.lib gdi32.lib opengl32.lib winmm.lib
+
 
 REM cl -MT -nologo -Gm- -GR- -EHa- -Od -Oi -WX -W4 -wd4201 -wd4100 -wd4189 -DHANDMADE_INTERNAL=1 -DHANDMADE_SLOW=1 -DHANDMADE_WIN32=1 -FC -Z7 -Fmwin32_handmade.map /EHsc /Fe"handmade" ../source/win32_handmade.cpp /link -opt:ref user32.lib hid.lib gdi32.lib opengl32.lib
 
@@ -47,8 +48,8 @@ REM 32-bit build
 REM cl %CommonCompilerFlags% ..\handmade\code\win32_handmade.cpp /link -subsystem:windows,5.1 %CommonLinkerFlags%
 
 REM 64-bit build
-cl %CommonCompilerFlags% ../source/win32_handmade.cpp /link %CommonLinkerFlags%
-
+cl %CommonCompilerFlags% ../source/handmade.cpp -Fmhandmade.map /LD /link /EXPORT:GameGetSoundSamples /EXPORT:GameUpdateAndRender %CommonLinkerFlags%
+cl %CommonCompilerFlags% ../source/win32_handmade.cpp -Fmwin32_handmad.map /link %CommonLinkerFlags%
 
 popd
 
