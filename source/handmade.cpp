@@ -20,7 +20,7 @@ GameOutputSound(game_state* GameState, game_sound_output_buffer* SoundBuffer, in
 		++SampleIndex)
 	{
 		// TODO(casey): Draw this out for people
-#if 0
+#if 1
 		real32 SineValue = sinf(GameState->tSine);
 		int16 SampleValue = (int16)(SineValue * ToneVolume);
 #else
@@ -152,7 +152,7 @@ extern "C" GAME_UPDATE_AND_RENDER(GameUpdateAndRender)
 		GameState->PlayerY -= (int)(4.0f * Controller->StickAverageY);
 		if (GameState->tJump > 0)
 		{
-			GameState->PlayerY += (int)(5.0f * sinf(0.5f * Pi32 * GameState->tJump));
+			GameState->PlayerY += (int)(20.0f * sinf(0.5f * Pi32 * GameState->tJump));
 		}
 		if (Controller->ActionDown.EndedDown)
 		{
