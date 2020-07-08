@@ -1004,7 +1004,7 @@ WinMain(HINSTANCE Instance,
     
     WNDCLASSA WindowClass = {};
 
-    Win32ResizeDIBSection(&GlobalBackbuffer, 1280, 720);
+    Win32ResizeDIBSection(&GlobalBackbuffer, 960, 540);
     
     WindowClass.style = CS_HREDRAW|CS_VREDRAW;
     WindowClass.lpfnWndProc = Win32MainWindowCallback;
@@ -1160,6 +1160,8 @@ WinMain(HINSTANCE Instance,
                 uint64 LastCycleCount = __rdtsc();
                 while(GlobalRunning)
                 {
+                    NewInput->dtForFrame = TargetSecondsPerFrame;
+                    
                     FILETIME NewDLLWriteTime = Win32GetLastWriteTime(SourceGameCodeDLLFullPath);
                     if(CompareFileTime(&NewDLLWriteTime, &Game.DLLLastWriteTime) != 0)
                     {
@@ -1519,8 +1521,6 @@ WinMain(HINSTANCE Instance,
 #if HANDMADE_INTERNAL
                         // NOTE(casey): This is debug code
                         {
-                            DWORD PlayCursor;
-                            DWORD WriteCursor;
                             if(GlobalSecondaryBuffer->GetCurrentPosition(&PlayCursor, &WriteCursor) == DS_OK)
                             {
                                 Assert(DebugTimeMarkerIndex < ArrayCount(DebugTimeMarkers));
