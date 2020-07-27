@@ -1071,8 +1071,6 @@ WinMain(HINSTANCE Instance,
             // On the Handmade Hero machine, it was 480 samples.
             while(GlobalRunning)
             {
-                DWORD PlayCursor;
-                DWORD WriteCursor;
                 GlobalSecondaryBuffer->GetCurrentPosition(&PlayCursor, &WriteCursor);
 
                 char TextBuffer[256];

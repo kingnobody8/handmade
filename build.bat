@@ -38,7 +38,7 @@ REM TODO - can we just build both x86/x64 with one exe?
 REM -subsystem:windows,5.01
 
 REM Optimization switches /O2 /Oi /fp:fast
-set CommonCompilerFlags=-MTd -nologo -Gm- -GR- -EHa- -Od -Oi -WX -W4 -wd4505 -wd4201 -wd4100 -wd4189 -DHANDMADE_INTERNAL=1 -DHANDMADE_SLOW=1 -DHANDMADE_WIN32=1 -DUSEOPENGL=0 -FC -Z7
+set CommonCompilerFlags=-MTd -nologo -fp:fast -Gm- -GR- -EHa- -Od -Oi -WX -W4 -wd4505 -wd4201 -wd4100 -wd4189 -DHANDMADE_INTERNAL=1 -DHANDMADE_SLOW=1 -DHANDMADE_WIN32=1 -DUSEOPENGL=0 -FC -Z7
 set CommonLinkerFlags= -incremental:no -opt:ref user32.lib gdi32.lib winmm.lib opengl32.lib
 
 
@@ -47,6 +47,7 @@ REM cl %CommonCompilerFlags% ..\handmade\code\win32_handmade.cpp /link -subsyste
 
 REM 64-bit build
 del *.pdb > NUL 2> NUL
+REM Optimization switches /O2
 cl %CommonCompilerFlags% ../source/handmade.cpp -Fmhandmade.map -LD /link -incremental:no -opt:ref -PDB:handmade_%random%.pdb -EXPORT:GameGetSoundSamples -EXPORT:GameUpdateAndRender %CommonLinkerFlags%
 cl %CommonCompilerFlags% ../source/win32_handmade.cpp -Fmwin32_handmade.map /link %CommonLinkerFlags%
 
