@@ -40,6 +40,7 @@ PushSize_(memory_arena *Arena, memory_index Size)
     return(Result);
 }
 
+#include "handmade_math.h"
 #include "handmade_intrinsics.h"
 #include "handmade_tile.h"
 
@@ -71,6 +72,7 @@ struct game_state
     
     tile_map_position CameraP;
     tile_map_position PlayerP;
+    v2 dPlayerP;
 
     loaded_bitmap Backdrop;
     uint32 HeroFacingDirection;
