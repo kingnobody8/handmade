@@ -81,6 +81,7 @@ $RECYCLE.BIN/
 
 # Custom
 build/*
+data/*
 projects/win/.vs/*
 projects/android/app_packaging/assets/*
 projects/android/.vs/*
